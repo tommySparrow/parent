@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.core.dao.SkuDAO">
+
+	<select id="findByProductIdAndColor" resultType="SuperPojo">
+		SELECT
+		*,c.`name` as colorName
+		FROM
+		bbs_sku AS s,
+		bbs_color AS c
+		WHERE
+		s.color_id
+		= c.id
+		AND product_id = #{productId};
+	</select>
+
+	<select id="findSKuAndColorAndProductBySkuId" resultType="SuperPojo">
+		SELECT
+		*, c.`name` AS colorName,
+		p.`name` AS productName,
+		p.img_url AS imgUrl
+		FROM
+		bbs_sku AS s,
+		bbs_color AS c,
+		bbs_product AS p
+		WHERE
+		s.color_id = c.id
+		AND p.id = s.product_id
+		AND s.id = #{skuId}
+	</select>
+
+</mapper>
